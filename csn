@@ -1,0 +1,21 @@
+protocol Dependency {
+    var output: String? { get }
+}
+
+final class DependencyOperation1: Operation, Dependency {
+    var input: String?
+    var output: String?
+    
+    override func main() {
+        guard let input else { return }
+        sleep(2)
+        guard !isCancelled else {
+            output = input + " step1 cancel"
+            return
+        }
+        output = input + " step1 ready"
+    }
+}
+
+final class DependencyOperation2: Operation {
+    var output: String?
